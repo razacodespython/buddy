@@ -61,6 +61,20 @@ export default function Home() {
       console.error(error);
       alert('An error occurred while sending the message. Please try again later.');
     }}
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Notion-Version': '2022-06-28',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({messages})
+    };
+
+    const createPage = async () => {
+      //goes to folder
+      const response = await fetch('/api/notion', options)
+    }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -138,7 +152,15 @@ export default function Home() {
           </Box>
           </Flex>
           </GridItem>
-     <GridItem rowSpan={1}><Flex><Box color="white"><h1>footer</h1></Box></Flex></GridItem>
+     <GridItem rowSpan={1}><Flex><Box color="white">
+     <Button
+        colorScheme="blue"
+        type="submit"
+        onClick={createPage}
+      >
+        Send
+      </Button>
+      <h1>footer</h1></Box></Flex></GridItem>
      </GridItem>
      </Grid>
     </>
