@@ -5,7 +5,10 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-
+function checkEnvVariable() {
+  console.log(process.env.MY_VARIABLE);
+}
+checkEnvVariable()
 export default async function handler(req, res) {
   const body = req.body.messages
   // const messageContent = body?.messages?.[0]?.content
