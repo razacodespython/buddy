@@ -7,9 +7,7 @@ import {
   Button,
   Container,
   Flex,
-  Heading,
   Image,
-  Text,
 } from "@chakra-ui/react";
 //import abi json
 export const initialMessages = [
@@ -20,7 +18,6 @@ export const initialMessages = [
 ];
 
 export default function Home() {
-  const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
   const [data, setData] = useState("How can i help?");
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState(initialMessages);
@@ -28,7 +25,6 @@ export default function Home() {
   const [showButton, setShowButton] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(1*60);
   const [provider, setProvider] = useState(null);
-
   const [address, setAddress] = useState(null);
 
 
@@ -142,8 +138,6 @@ export default function Home() {
       const mintTransaction = await contract.mint(address, 1000);
       await mintTransaction.wait();
       console.log(`Minted 1000 tokens to ${address}`);
-      const newBalance = await contract.balanceOf(address);
-      setBalance(newBalance.toString());
     } else {
       console.log("Wallet not connected");
     }
