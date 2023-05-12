@@ -5,16 +5,7 @@ export default async function handler(req, res) {
     const body = req.body.messages
     const output = body
     .map(item => `${item.role.charAt(0).toUpperCase()}${item.role.slice(1)}: ${item.content}`)
-    .join('\n');
-    // const myObject = JSON.parse(JSON.stringify(body));
-    // console.log('this is body')
-    // console.log(myObject)
-    // let output = '';
-    // for (const item of body) {
-    //     output += `${item.role.charAt(0).toUpperCase()}${item.role.slice(1)}: ${item.content}\n`;
-    //   }
-    // let conversation = output.replace(/\n/g, "\n")
-      
+    .join('\n');     
   const response = await notion.pages.create({
     "cover": {
         "type": "external",
