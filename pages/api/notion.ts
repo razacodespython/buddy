@@ -1,12 +1,23 @@
 const { Client } = require('@notionhq/client');
+import type { InitialMessage } from "../../types/initialmessage";
+//boiler plate notion doc
+//load environment variable
+const notion:any = new Client({ auth: process.env.NOTION_API_KEY });
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
-export default async function handler(req, res) {
-    const body = req.body.messages
-    const output = body
+//make the api call
+export default async function handler(req: any, res: any): Promise<void> {
+    //take the conversation
+        const body:InitialMessage[] = req.body.messages;
+
+    //format the conversation to a journal format
+    const output:string = body
     .map(item => `${item.role.charAt(0).toUpperCase()}${item.role.slice(1)}: ${item.content}`)
-    .join('\n');     
-  const response = await notion.pages.create({
+    .join('\n');
+
+
+    //boiler plate format
+    //pass json with the data
+  const response:any = await notion.pages.create({
     "cover": {
         "type": "external",
         "external": {
@@ -40,11 +51,6 @@ export default async function handler(req, res) {
                 }
             ]
         }
-        // "Food group": {
-        //     "select": {
-        //         "name": "🥬 Vegetable"
-        //     }
-        // }
     },
     "children": [
         {
@@ -65,7 +71,7 @@ export default async function handler(req, res) {
                 "rich_text": [
                     {
                         "text": {
-                            
+                            //pass the output, the formatted conversation
                             "content": output,
                             "link": {
                                 "url": "https://en.wikipedia.org/wiki/Lacinato_kale"
@@ -79,8 +85,7 @@ export default async function handler(req, res) {
         }
     ]
 });
-  console.log(response);
-
+  res.send(response)
 }
 
 // "content": JSON.stringify(conversation),
